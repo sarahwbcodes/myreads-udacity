@@ -11,7 +11,7 @@ export default class Search extends React.Component{
   };
   updateQuery=(query) => {
     this.setState({query})
-    BooksAPI.search(query || query.trim()).then(results)=>{
+    BookData.search(query || query.trim()).then(results)=>{
       results.map(result)=> if(book.id===result.id && result.length>0){
         return this.state.book.shelf
         this.setState({results:results})
@@ -28,10 +28,10 @@ export default class Search extends React.Component{
 render(){
 <div className="search-books">
 <div className="search-books-bar">
-<Link to="/" className="close-search">Close</Link>
+<Link to={`/`} className="close-search">Close</Link>
 <div className="search-books-input-wrapper">
 <input type='text'
-value={this.state.query}
+value={this.props.query}
 onChange={(event)=>this.updateQuery(event.target.value.trim())}
 placeholder="Search by a book title or author name"
 />
@@ -39,9 +39,9 @@ placeholder="Search by a book title or author name"
 </div>
 <div className="search-book-results">
 <ol className="books-grid">
-{results.sort(sortBy('title')).map=>{
+{results.sort(sortBy('title')).map()=>{
   <li key={book.id}>
-  <Book value={book} onChange=this.props.changeShelf(book, shelf)/>
+  <Book content={book} shelfSwitch={this.shelfSwitch}/>
   </li>
 }}
 </ol>
