@@ -11,7 +11,7 @@ export default class Shelf extends React.Component{
     <ol className="books-grid">
 {this.props.books.map((book)=>(
   <li key={book.id}>
-  <Book value={book} shelfSwitch={this.props.shelfSwitch}/>
+  <Book content={book} shelfswitch={this.props.shelfswitch}/>
   </li>
 ))}
 
