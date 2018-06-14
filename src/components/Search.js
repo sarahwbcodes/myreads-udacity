@@ -23,13 +23,14 @@ export default class Search extends React.Component{
     
     const {query}= this.state
     const {books} = this.props
-
-    BookData.search(query).then(books => books ? this.setState({
+//search through data
+    bookSearch(query)
+    {BookData.search(query).then(books => books ? this.setState({
         books
       }) : []);
       this.setState({
        query
-      });
+      })};
     
 //or
     /*BookData.search(query).then((books)=>
@@ -48,7 +49,8 @@ export default class Search extends React.Component{
     }else{
         bookResults = books
     }
-    render(){
+    render()
+    {
         bookResults.sort(sortBy('title'))
     return(
       <div className="search-books">
@@ -67,7 +69,7 @@ export default class Search extends React.Component{
       <ol className="books-grid">
       {bookResults.map((book)=>(
         <li key={book.id}>
-        <Book content={book} shelfSwitch={this.shelfSwitch}/>
+        <Book content={book} shelfSwitch={this.shelfSwitch} bookSearch={this.bookSearch}/>
         </li>
       ))
       }
