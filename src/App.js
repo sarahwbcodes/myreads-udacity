@@ -47,9 +47,10 @@ shelfSwitch = (book,shelf) => {
 }
 
 //a function that is an extension of the search component, if it even works rn. 
-/*lookUpBook= () =>{
-  BookData.search(query).then
-}*/
+lookUpBook(query){
+  BookData.search(query).then(books=> books ? this.setState({books}):[]);
+  this.setState({query});
+}
 
 // a function to filter out the book arrays so each will reside in their respective shelves
 booksByShelf = (shelf) => this.state.books.filter((book) => book.shelf === shelf)
@@ -79,6 +80,7 @@ booksByShelf = (shelf) => this.state.books.filter((book) => book.shelf === shelf
           query={this.state.query}
           bookResults={this.searchUpdate}
           shelfSwitch={this.shelfSwitch}
+          lookUpBook={this.lookUpBook}
           />
           </div>
         )}/>
