@@ -5,31 +5,33 @@ import escapeRegExp from 'escape-string-regexp'
 import Book from './Book'
 import * as BookData from '../BooksAPI'
 
-state={
-    query:''
-}
 
-searchUpdate = (query) => {
-    this.setState({query: query.trim()})
-}
-
-searchClear = () => {
-    this.setState({query:''})
-}
 export default class Search extends React.Component{
+    state={
+        query:''
+    }
+    
+    searchUpdate = (query) => {
+        this.setState({query: query.trim()})
+    }
+    
+    searchClear = () => {
+        this.setState({query:''})
+    }
     render(){
         //search and result functionality courtesy of Udacity's React lessons
         const {query} = this.state
+        const {books} = this.props
         let bookResults
-        if (this.state.query){
+        if (query){
             //so we can ignore any special characters and pass them as object literals
         const result = new RegExp(escapeRegExp(query), 'i')
-        bookResults = this.props.books.filter((book)=> result.test(book.title))
+        bookResults = books.filter((book)=> result.test(book.title))
         }else{
-            bookResults = this.props.books
+            bookResults = books
         }
-
-        bookResults.sort(sortBy('title'))
+        //bookResults.sort(sortBy('title'))
+        
         return(
       <div className="search-books">
       <div className="search-books-bar">
