@@ -1,9 +1,8 @@
 import React from 'react'
 import Book from './Book'
-
 export default class Shelf extends React.Component {
-  render() {
-    const {
+    render() {
+        const {
       books
     } = this.props
     return ( <
