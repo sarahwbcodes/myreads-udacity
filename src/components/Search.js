@@ -25,8 +25,6 @@ export default class Search extends React.Component {
       })
     }
     //search and result functionality courtesy of Udacity's React lessons
-    //search through book data
-
     const {
       query
     } = this.state
@@ -53,13 +51,16 @@ export default class Search extends React.Component {
   }*/
     //display the books
     let bookResults
-    if (query) {
-      //so we can ignore any special characters and pass them as object literals
-      const result = new RegExp(escapeRegExp(query), 'i')
-      bookResults = books.filter((book) => result.test(book.title))
-    } else {
-      bookResults = books
-    }
+    resultsMap() {
+      if (query) {
+        //so we can ignore any special characters and pass them as object literals
+        const result = new RegExp(escapeRegExp(query), 'i')
+        bookResults = books.filter((book) => result.test(book.title))
+      } else {
+        bookResults = books
+      }
+    };
+
     render() {
       bookResults.sort(sortBy('title'))
       return ( <
@@ -85,8 +86,8 @@ export default class Search extends React.Component {
         <
         button onClick = {
           this.searchClear
-        } > Show all books < /button> <
-        /div> <
+        } > Show all books < /button> < /
+        div > <
         /div> <
         div className = "search-book-results" >
         <
@@ -105,12 +106,13 @@ export default class Search extends React.Component {
             bookSearch = {
               this.bookSearch
             }
-            /> <
-            /li>
+
+            /> < /
+            li >
           ))
         } <
-        /ol> <
-        /div> <
+        /ol> < /
+        div > <
         /div>
       )
     }
