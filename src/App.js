@@ -54,15 +54,14 @@ export default class BooksApp extends React.Component {
   }
 
   //a function that is an extension of the search component, if it even works rn.
-  lookUpBook(query) {
+  bookSearch(query) {
     BookData.search(query).then(books => books ? this.setState({
       books
     }) : []);
     this.setState({
       query
-    });
-  }
-
+    })
+  };
   // a function to filter out the book arrays so each will reside in their respective shelves
   booksByShelf = (shelf) => this.state.books.filter((book) => book.shelf === shelf)
 
@@ -138,8 +137,8 @@ export default class BooksApp extends React.Component {
           shelfSwitch = {
             this.shelfSwitch
           }
-          lookUpBook = {
-            this.lookUpBook
+          bookSearch = {
+            this.bookSearch
           }
           /> <
           /div>
