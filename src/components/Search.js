@@ -37,10 +37,10 @@ export default class Search extends React.Component {
     };
     //display the books
     resultsMap() {
-      if (query) {
+      if (this.state.query) {
         //so we can ignore any special characters and pass them as object literals
         const result = new RegExp(escapeRegExp(this.state.query), 'i')
-        bookResults = this.props.books.filter((book) => result.test(book.title))
+        this.state.bookResults = this.props.books.filter((book) => result.test(book.title))
       } else {
         this.state.bookResults = this.props.books
       }
@@ -54,7 +54,6 @@ export default class Search extends React.Component {
         <Link to={`/`} className="close-search">Close</Link>
         <div className="search-books-input-wrapper">
         <input type='text' value={this.state.query} onChange={(event)=>this.searchUpdate(event.target.value)} placeholder="look up books by title or author"/>
-        <span onClick={this.searchClear}>Clear Search</span>
         </div>
         </div>
         <div className="search-book-results">
