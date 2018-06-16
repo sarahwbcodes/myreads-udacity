@@ -53,7 +53,7 @@ export default class Search extends React.Component {
         <div className="search-books-bar">
         <Link to={`/`} className="close-search">Close</Link>
         <div className="search-books-input-wrapper">
-        <input type='text' value={this.state.query} onChange={(event)=>this.searchUpdate(event.target.value)} placeholder="look up books by title or author"/>
+        <input type='text' value={this.state.query} onChange={(event)=>this.bookSearch(event.target.value)} placeholder="look up books by title or author"/>
         </div>
         </div>
         <div className="search-book-results">
