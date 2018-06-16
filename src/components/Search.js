@@ -54,8 +54,14 @@ export default class Search extends React.Component {
         <Link to={`/`} className="close-search">Close</Link>
         <div className="search-books-input-wrapper">
         <input type='text' value={this.state.query} onChange={(event)=>this.searchUpdate(event.target.value)} placeholder="look up books by title or author"/>
-        <span onClick={this.searchClear}
+        <span onClick={this.searchClear}>Clear Search</span>
         </div>
+        </div>
+        <div className="search-book-results">
+      <ol className="books-grid">{
+        this.state.bookResults.map((book)=>(<li key={book.id}>
+        <Book content={book} shelfSwitch={this.shelfSwitch} bookSearch={this.bookSearch}/></li>))}</ol>
+      }
         </div>
         </div>
 
