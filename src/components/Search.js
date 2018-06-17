@@ -18,6 +18,7 @@ export default class Search extends React.Component {
       this.setState({
         query: query.trim()
       })
+      this.bookSearch(query);
     }
 
     searchClear = () => {
@@ -28,13 +29,19 @@ export default class Search extends React.Component {
     //search and result functionality courtesy of Udacity's React lessons
     //search through data
     bookSearch(query) {
-      BookData.search(query).then(books => books ? this.setState({
-        books
-      }) : []);
-      this.setState({
-        query
-      })
-    };
+      BookData.search(query).then(bookResults => {
+        bookResults ?
+        this.setState({bookResults}) : this.setState({bookResults:[]})
+        console.log(bookResults);
+    }).catch(
+        // Log the rejection reason
+        (reason) => {
+          console.log('Handle rejected promise ('+reason+') here.');
+        });
+      // this.setState({
+      //   query
+      // })
+    }
     //display the books
     resultsMap() {
       if (this.state.query) {
@@ -46,23 +53,32 @@ export default class Search extends React.Component {
       }
     };
 
+    print = (book)=>
+    console.log(book);
+
     render() {
-      this.state.bookResults.sort(sortBy('title'))
-      return ( 
+      // this.state.bookResults.sort(sortBy('title'))
+      const bookResults = this.state.bookResults;
+      this.print(bookResults)
+      return (
         <div className="search-books">
-        <div className="search-books-bar">
-        <Link to={`/`} className="close-search">Close</Link>
-        <div className="search-books-input-wrapper">
-        <input type='text' value={this.state.query} onChange={(event)=>this.bookSearch(event.target.value)} placeholder="look up books by title or author"/>
-        </div>
-        </div>
-        <div className="search-book-results">
-      <ol className="books-grid">{
-        this.state.bookResults.map((book)=>(<li key={book.id}>
-        <Book content={book} shelfSwitch={this.shelfSwitch} bookSearch={this.bookSearch}/></li>))}</ol>
-      }
-        </div>
+          <div className="search-books-bar">
+            <Link to={`/`} className="close-search">Close</Link>
+            <div className="search-books-input-wrapper">
+            <input type='text' value={this.state.query} onChange={(event)=>this.searchUpdate(event.target.value)} placeholder="look up books by title or author"/>
+            </div>
+          </div>
+          <div className="search-book-results">
+            <ol className="books-grid">
+              {bookResults && bookResults.length > 0 && bookResults.map((book)=>(
+                <li key={book.id}>
+                  <Book content={book} shelfSwitch={this.shelfSwitch} bookSearch={this.bookSearch}/>
+                </li>))
+              }
+            </ol>
+          </div>
         </div>
 
       )
-    }}
+    }
+  }
